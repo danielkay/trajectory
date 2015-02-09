@@ -2,7 +2,7 @@
     height: 4em;
         
     .navbar .button {
-        border-right: 1px solid $blood;
+        border-right: 1px solid $colour1;
 
         height: 100%;
 
@@ -14,19 +14,19 @@
     }
 
     .navbar .button:first-of-type {
-        border-left: 1px solid $blood;
+        border-left: 1px solid $colour1;
     }
 
     .navbar .button:hover {
-        background: $blood;
-        color: $mustard;
+        background: $colour1;
+        color: $colour2;
     }
     
     .navbar {
-        background: $mustard;
-        color: $blood;
+        background: $colour2;
+        color: $colour1;
         
-        border-bottom: 1px solid $blood;
+        border-bottom: 1px solid $colour1;
         
         height: 100%;
         
