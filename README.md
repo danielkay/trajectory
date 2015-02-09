@@ -11,5 +11,7 @@ Flight requires `PHP 5.3` or greater.
 To install, clone the repo to the required folder and run the following commands:
 
 > npm install
+
 > composer install
+
 > bower install
