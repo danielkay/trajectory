@@ -1,5 +1,5 @@
 {
-    "name": "danielkay/trajectory",
+    "name": "trajectory",
     "description": "Trajectory is a simple development stack based on PHP micro-framework Flight and Front-end MV* Framework AngularJS.",
     "homepage": "https://github.com/danielkay/trajectory",
     "license": "MIT",
