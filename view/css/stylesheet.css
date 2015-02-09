@@ -1,28 +1,28 @@
 body {
-  background: #F0F0E8;
+  background: #D0D0D0;
 }
 
 .navbar-container {
   height: 4em;
 }
 .navbar-container .navbar .button {
-  border-right: 1px solid #BA2C1F;
+  border-right: 1px solid #808080;
   height: 100%;
   line-height: 4em;
   padding: 0 1em;
   cursor: pointer;
 }
 .navbar-container .navbar .button:first-of-type {
-  border-left: 1px solid #BA2C1F;
+  border-left: 1px solid #808080;
 }
 .navbar-container .navbar .button:hover {
-  background: #BA2C1F;
-  color: #EFB33A;
+  background: #808080;
+  color: #B0B0B0;
 }
 .navbar-container .navbar {
-  background: #EFB33A;
-  color: #BA2C1F;
-  border-bottom: 1px solid #BA2C1F;
+  background: #B0B0B0;
+  color: #808080;
+  border-bottom: 1px solid #808080;
   height: 100%;
 }
 .navbar-container .navbar .nav-title {
@@ -51,9 +51,9 @@ body {
   width: 100%;
   position: absolute;
   bottom: 0;
-  border-top: 1px solid #BA2C1F;
-  background: #EFB33A;
-  color: #BA2C1F;
+  border-top: 1px solid #808080;
+  background: #B0B0B0;
+  color: #808080;
   text-align: center;
   line-height: 2em;
 }
