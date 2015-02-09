@@ -5,6 +5,9 @@ $colour2: #B0B0B0;
 $colour3: #202020;
 $colour4: #505050;
 
+$fade1: rgba(220,220,220,1);
+$fade2: darken($fade1, 15%);
+
 body {
     background: $background;
 } 
