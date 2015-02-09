@@ -19,14 +19,28 @@
 
     .navbar .button:hover {
         background: $colour1;
-        color: $colour2;
+        color: black;
+
+        background: -moz-linear-gradient(bottom,  darken($fade2, 20%) 0%, $fade2 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,darken($fade2, 20%)), color-stop(100%,$fade2)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(bottom,  darken($fade2, 20%) 0%,$fade2 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(bottom,  darken($fade2, 20%) 0%,$fade2 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(bottom,  darken($fade2, 20%) 0%,$fade2 100%); /* IE10+ */
+        background: linear-gradient(to top,  darken($fade2, 20%) 0%,$fade2 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606060', endColorstr='#909090',GradientType=0 ); /* IE6-9 */
     }
     
     .navbar {
         background: $colour2;
         color: $colour1;
-        
-        border-bottom: 1px solid $colour1;
+
+        background: -moz-linear-gradient(top,  $fade1 0%, $fade2 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$fade1), color-stop(100%,$fade2)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  $fade1 0%,$fade2 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  $fade1 0%,$fade2 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  $fade1 0%,$fade2 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  $fade1 0%,$fade2 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#B0B0B0', endColorstr='#909090',GradientType=0 ); /* IE6-9 */
         
         height: 100%;
         
