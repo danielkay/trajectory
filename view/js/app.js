@@ -12,7 +12,7 @@ app.config(function($routeProvider, $locationProvider) {
 });
 
 app.run(['$location','$rootScope',function($location, $rootScope) {
-    $rootScope.title = 'Page Title';
+    $rootScope.title = 'Trajectory';
     
     $rootScope.navigate = function(route) {
         $location.path('/'+route);
