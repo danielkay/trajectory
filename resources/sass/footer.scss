@@ -5,10 +5,8 @@
     position: absolute;
     bottom: 0;
     
-    border-top: 1px solid $colour1;
-    
-    background: $colour2;
-    color: $colour1;
+    background: lighten($colour2, 5%);
+    color: darken($colour1, 10%);
     
     text-align: center;
     line-height: 2em;
