@@ -18,6 +18,11 @@ To install, clone the repo to the required folder and run the following commands
 
 # Development
 
-Grunt is loaded as a dependency, and a gruntfile.js is provided ready to use with the project. This includes grunt-contrib-watch, to automatically compile and concatenate SASS and javascript from the '/resources' folder when they are changed.
+Grunt is loaded as a dependency, and a gruntfile.js is provided ready to use with the project.
+This includes grunt-contrib-watch, to automatically compile and concatenate SASS and javascript from the '/resources' folder when they are changed.
+
+To use this, simply enter the following command:
+
+> grunt
 
 The main view is stored in the '/view' folder, and partials stored in '/view/pages'.
