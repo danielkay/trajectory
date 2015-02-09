@@ -5,3 +5,11 @@ Trajectory is a simple development stack based on PHP micro-framework [Flight](h
 # Requirements
 
 Flight requires `PHP 5.3` or greater.
+
+# Installation
+
+To install, clone the repo to the required folder and run the following commands:
+
+> npm install
+> composer install
+> bower install
