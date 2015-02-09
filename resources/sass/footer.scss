@@ -1,0 +1,15 @@
+.footer {
+    height: 2em;
+    width: 100%;
+    
+    position: absolute;
+    bottom: 0;
+    
+    border-top: 1px solid $blood;
+    
+    background: $mustard;
+    color: $blood;
+    
+    text-align: center;
+    line-height: 2em;
+}

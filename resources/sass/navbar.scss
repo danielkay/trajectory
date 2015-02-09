@@ -1,0 +1,60 @@
+.navbar-container {
+    height: 4em;
+        
+    .navbar .button {
+        border-right: 1px solid $blood;
+
+        height: 100%;
+
+        line-height: 4em;
+
+        padding: 0 1em;
+
+        cursor: pointer;
+    }
+
+    .navbar .button:first-of-type {
+        border-left: 1px solid $blood;
+    }
+
+    .navbar .button:hover {
+        background: $blood;
+        color: $mustard;
+    }
+    
+    .navbar {
+        background: $mustard;
+        color: $blood;
+        
+        border-bottom: 1px solid $blood;
+        
+        height: 100%;
+        
+        .nav-title {
+            display: inline-block;
+            float: left;
+            
+            padding: 0 2em;
+        }
+        
+        .nav-left {
+            display: inline-block;
+            float: left;
+            
+            .button {
+                float: left;
+            }
+        }
+        
+        .nav-right {
+            display: inline-block;
+            float: right;
+            
+            padding-right: 2em;
+            
+            .button {
+                float: left;
+            }
+        }
+    }
+}

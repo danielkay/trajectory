@@ -1,0 +1,31 @@
+{
+  "name": "danielkay/trajectory",
+  "version": "0.0.1",
+  "homepage": "https://github.com/danielkay/trajectory",
+  "authors": [
+    "Daniel Kay <contact@danielkay.co.uk>"
+  ],
+  "description": "Trajectory is a simple development stack based on PHP micro-framework Flight and Front-end MV* Framework AngularJS.",
+  "main": "index.php",
+  "keywords": [
+    "trajectory",
+    "flight",
+    "angular",
+    "php",
+    "javascript",
+    "html"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.12",
+    "angular-route": "~1.3.12",
+    "normalize.css": "~3.0.2"
+  }
+}

@@ -1,0 +1,61 @@
+body {
+  background: #F0F0E8;
+}
+
+.navbar-container {
+  height: 4em;
+}
+.navbar-container .navbar .button {
+  border-right: 1px solid #BA2C1F;
+  height: 100%;
+  line-height: 4em;
+  padding: 0 1em;
+  cursor: pointer;
+}
+.navbar-container .navbar .button:first-of-type {
+  border-left: 1px solid #BA2C1F;
+}
+.navbar-container .navbar .button:hover {
+  background: #BA2C1F;
+  color: #EFB33A;
+}
+.navbar-container .navbar {
+  background: #EFB33A;
+  color: #BA2C1F;
+  border-bottom: 1px solid #BA2C1F;
+  height: 100%;
+}
+.navbar-container .navbar .nav-title {
+  display: inline-block;
+  float: left;
+  padding: 0 2em;
+}
+.navbar-container .navbar .nav-left {
+  display: inline-block;
+  float: left;
+}
+.navbar-container .navbar .nav-left .button {
+  float: left;
+}
+.navbar-container .navbar .nav-right {
+  display: inline-block;
+  float: right;
+  padding-right: 2em;
+}
+.navbar-container .navbar .nav-right .button {
+  float: left;
+}
+
+.footer {
+  height: 2em;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid #BA2C1F;
+  background: #EFB33A;
+  color: #BA2C1F;
+  text-align: center;
+  line-height: 2em;
+}
+
+/*# sourceMappingURL=stylesheet.css.map */

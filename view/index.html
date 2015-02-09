@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html data-ng-app="myApp">
+    <head>
+        <base href='/' />
+        <title>{{ title }}</title>
+        <link rel="stylesheet" href="/bower_components/normalize.css/normalize.css" />
+        <link rel="stylesheet" href="/view/css/stylesheet.css" />
+    </head>
+    <body>
+        <div class='navbar-container'>
+            <div class='navbar'>
+                <div class='nav-title'>
+                    <h2>{{ title }}</h2>
+                </div>
+                <div class='nav-left'>
+                    <div class='button' data-ng-click='navigate("")'>Home</div>
+                    <div class='button' data-ng-click='navigate("")'>About</div>
+                </div>
+                <div class='nav-right'>
+                    <div class='button'>Log In</div>
+                </div>
+            </div>
+        </div>
+        <div class='header'>
+        </div>
+        <div class='content' data-ng-view>
+        </div>
+        <div class='footer'>
+            Copyright © 2015 Daniel Kay
+        </div>
+        <script src="/bower_components/angular/angular.js"></script>
+        <script src="/bower_components/angular-route/angular-route.js"></script>
+        <script src="/view/js/app.js"></script>
+    </body>
+</html>
