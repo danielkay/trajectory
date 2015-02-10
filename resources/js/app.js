@@ -2,14 +2,14 @@ var app = angular.module('myApp',['ngRoute', 'lastfmService']);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
-        .when('/home', {
-            templateUrl: '/view/pages/home.html',
-            pageTitle: 'Home',
-            controller: 'homeController'
+        .when('/about', {
+            templateUrl: '/view/pages/about.html',
+            pageTitle: 'about',
+            controller: 'aboutController'
         })
         .when('/chart', {
             templateUrl: '/view/pages/chart.html',
-            pageTitle: 'Last.FM Chart',
+            pageTitle: 'Bubble Chart',
             controller: 'chartController'
         })
         .otherwise({
@@ -20,7 +20,7 @@ app.config(function($routeProvider, $locationProvider) {
 });
 
 app.run(['$location','$rootScope',function($location, $rootScope) {
-    $rootScope.title = 'Audio Bubbles';
+    $rootScope.title = 'Trajectory';
     $rootScope.navigate = function(route) {
         $location.path('/'+route);
     };
