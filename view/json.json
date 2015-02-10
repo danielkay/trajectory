@@ -8,7 +8,7 @@
      "name": "cluster",
      "children": [
       {"name": "AgglomerativeCluster", "size": 3938},
-      {"name": "CommunityStructure", "size": 3812},
+      {"name": "CommunityStructure", "size": 38120},
       {"name": "HierarchicalCluster", "size": 6714},
       {"name": "MergeEdge", "size": 743}
      ]
@@ -34,7 +34,7 @@
   {
    "name": "animate",
    "children": [
-    {"name": "Easing", "size": 17010},
+    {"name": "Easing", "size": 1701},
     {"name": "FunctionSequence", "size": 5842},
     {
      "name": "interpolate",
