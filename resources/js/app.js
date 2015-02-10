@@ -21,7 +21,6 @@ app.config(function($routeProvider, $locationProvider) {
 
 app.run(['$location','$rootScope',function($location, $rootScope) {
     $rootScope.title = 'Audio Bubbles';
-    
     $rootScope.navigate = function(route) {
         $location.path('/'+route);
     };
