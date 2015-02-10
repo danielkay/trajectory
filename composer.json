@@ -13,13 +13,5 @@
     "require": {
         "php": ">=5.3.0",
         "mikecao/flight": "dev-master"
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "bower install"
-        ],
-        "post-update-cmd": [
-            "bower install"
-        ]
     }
 }
