@@ -85,14 +85,11 @@ body {
 }
 
 circle {
-  fill: #1f77b4;
   fill-opacity: .25;
-  stroke: #1f77b4;
   stroke-width: 1px;
 }
 
 .leaf circle {
-  fill: #ff7f0e;
   fill-opacity: 1;
 }
 
