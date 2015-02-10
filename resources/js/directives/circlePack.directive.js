@@ -1,7 +1,6 @@
 app.directive('circlePack', ['$window', function($window) {
 	return {
 		restrict: 'A',
-		templateUrl: 'view/pages/partials/circlePack.html',
 		controller: 'chartController',
 		link: function($scope, element, attrs) {
 			var margin = 20,
@@ -10,8 +9,8 @@ app.directive('circlePack', ['$window', function($window) {
 				height = $window.innerHeight - 98;
 
 			var color = d3.scale.linear()
-			    .domain([-1, 5])
-			    .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+			    .domain([0, 5])
+			    .range(["hsl(255,0%,60%)", "hsl(0,100%,0%)"])
 			    .interpolate(d3.interpolateHcl);
 
 			var pack = d3.layout.pack()
@@ -19,7 +18,7 @@ app.directive('circlePack', ['$window', function($window) {
 			    .size([width - margin, height - margin])
 			    .value(function(d) { return d.size; })
 
-			var svg = d3.select("body").append("svg")
+			var svg = d3.select(".d3").append("svg")
 			    .attr("width", width)
 			    .attr("height", height)
 			  .append("g")
@@ -50,7 +49,6 @@ app.directive('circlePack', ['$window', function($window) {
 			  var node = svg.selectAll("circle,text");
 
 			  d3.select("body")
-			      .style("background", color(-1))
 			      .on("click", function() { zoom(root); });
 
 			  zoomTo([root.x, root.y, root.r * 2 + margin]);
