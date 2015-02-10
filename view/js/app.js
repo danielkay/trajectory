@@ -32,10 +32,68 @@ app.controller('chartController',function($scope, $location) {
 app.controller('homeController',function($scope, $location) {
     
 });
+app.directive('bubbleChart', ['$window', function($window) {
+	return {
+		restrict: 'A',
+		controller: 'chartController',
+		link: function($scope, element, attrs) {
+			var diameter = 960,
+				width = $window.innerWidth,
+				height = $window.innerHeight - 98,
+                format = d3.format(",d"),
+                color = d3.scale.category10();
+
+            var bubble = d3.layout.pack()
+                .sort(null)
+                .size([width, height])
+                .padding(1.5);
+
+            var svg = d3.select(".d3").append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .attr("class", "bubble");
+
+            d3.json("view/json.json", function(error, root) {
+              var node = svg.selectAll(".node")
+                  .data(bubble.nodes(classes(root))
+                  .filter(function(d) { return !d.children; }))
+                .enter().append("g")
+                  .attr("class", "node")
+                  .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+              node.append("title")
+                  .text(function(d) { return d.className + ": " + format(d.value); });
+
+              node.append("circle")
+                  .attr("r", function(d) { return d.r; })
+                  .style("fill", function(d) { return color(d.packageName); });
+
+              node.append("text")
+                  .attr("dy", ".3em")
+                  .style("text-anchor", "middle")
+                  .text(function(d) { return d.className.substring(0, d.r / 3); });
+            });
+
+            // Returns a flattened hierarchy containing all leaf nodes under the root.
+            function classes(root) {
+              var classes = [];
+
+              function recurse(name, node) {
+                if (node.children) node.children.forEach(function(child) { recurse(node.name, child); });
+                else classes.push({packageName: name, className: node.name, value: node.size});
+              }
+
+              recurse(null, root);
+              return {children: classes};
+            }
+
+            d3.select(self.frameElement).style("height", height + "px"); 
+		}
+	}
+}]);
 app.directive('circlePack', ['$window', function($window) {
 	return {
 		restrict: 'A',
-		templateUrl: 'view/pages/partials/circlePack.html',
 		controller: 'chartController',
 		link: function($scope, element, attrs) {
 			var margin = 20,
@@ -44,8 +102,8 @@ app.directive('circlePack', ['$window', function($window) {
 				height = $window.innerHeight - 98;
 
 			var color = d3.scale.linear()
-			    .domain([-1, 5])
-			    .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+			    .domain([0, 5])
+			    .range(["hsl(255,0%,60%)", "hsl(0,100%,0%)"])
 			    .interpolate(d3.interpolateHcl);
 
 			var pack = d3.layout.pack()
@@ -53,7 +111,7 @@ app.directive('circlePack', ['$window', function($window) {
 			    .size([width - margin, height - margin])
 			    .value(function(d) { return d.size; })
 
-			var svg = d3.select("body").append("svg")
+			var svg = d3.select(".d3").append("svg")
 			    .attr("width", width)
 			    .attr("height", height)
 			  .append("g")
@@ -84,7 +142,6 @@ app.directive('circlePack', ['$window', function($window) {
 			  var node = svg.selectAll("circle,text");
 
 			  d3.select("body")
-			      .style("background", color(-1))
 			      .on("click", function() { zoom(root); });
 
 			  zoomTo([root.x, root.y, root.r * 2 + margin]);
