@@ -84,4 +84,13 @@ body {
   line-height: 2em;
 }
 
+circle {
+  fill-opacity: .25;
+  stroke-width: 1px;
+}
+
+.leaf circle {
+  fill-opacity: 1;
+}
+
 /*# sourceMappingURL=stylesheet.css.map */

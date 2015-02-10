@@ -9,12 +9,12 @@
     <body>
         <div class='navbar-container'>
             <div class='navbar'>
-                <div class='nav-title'>
+                <div class='nav-title' data-ng-click='navigate("")'>
                     <h2>{{ title }}</h2>
                 </div>
                 <div class='nav-left'>
-                    <div class='button' data-ng-click='navigate("")'>Home</div>
-                    <div class='button' data-ng-click='navigate("")'>About</div>
+                    <div class='button' data-ng-click='navigate("home")'>Home</div>
+                    <div class='button' data-ng-click='navigate("chart")'>Chart</div>
                 </div>
                 <div class='nav-right'>
                     <div class='button'>Log In</div>
@@ -29,7 +29,9 @@
             Released under the terms of the <a href='https://github.com/danielkay/trajectory/blob/master/LICENSE' alt='MIT License'>MIT License</a>
         </div>
         <script src="/bower_components/angular/angular.js"></script>
+        <script src="/bower_components/angular-resource/angular-resource.js"></script>
         <script src="/bower_components/angular-route/angular-route.js"></script>
+        <script src="/bower_components/d3/d3.js"></script>
         <script src="/view/js/app.js"></script>
     </body>
 </html>
