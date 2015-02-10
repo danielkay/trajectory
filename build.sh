@@ -1,5 +1,4 @@
 #!/bin/bash
 
-npm install
-php composer.phar install
+composer install
 bower install
