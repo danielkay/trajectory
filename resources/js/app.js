@@ -1,4 +1,4 @@
-var app = angular.module('myApp',['ngRoute']);
+var app = angular.module('myApp',['ngRoute', 'lastfmService']);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
@@ -6,13 +6,21 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: '/view/pages/home.html',
             pageTitle: 'Home',
             controller: 'homeController'
+        })
+        .when('/chart', {
+            templateUrl: '/view/pages/chart.html',
+            pageTitle: 'Last.FM Chart',
+            controller: 'chartController'
+        })
+        .otherwise({
+            redirectTo: '/'
         });
     
     $locationProvider.html5Mode(true);
 });
 
 app.run(['$location','$rootScope',function($location, $rootScope) {
-    $rootScope.title = 'Trajectory';
+    $rootScope.title = 'Audio Bubbles';
     
     $rootScope.navigate = function(route) {
         $location.path('/'+route);
