@@ -1,4 +1,3 @@
 #!/bin/bash
 
-composer install
-bower install
+php composer.phar install
