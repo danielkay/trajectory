@@ -85,6 +85,12 @@ body {
   line-height: 2em;
 }
 
+.d3 {
+  position: absolute;
+  top: 4em;
+  z-index: -1;
+}
+
 circle {
   fill-opacity: .25;
   stroke-width: 1px;
