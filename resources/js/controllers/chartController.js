@@ -1,3 +1,2 @@
-app.controller('chartController',function($scope, $location) {
-    
+app.controller('chartController',function($scope, artistSearch) {
 });
