@@ -4,11 +4,11 @@ app.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/about', {
             templateUrl: '/view/pages/about.html',
-            pageTitle: 'about',
+            pageTitle: 'About',
             controller: 'aboutController'
         })
-        .when('/chart', {
-            templateUrl: '/view/pages/chart.html',
+        .when('/chart/pack', {
+            templateUrl: '/view/pages/bubbleChart.html',
             pageTitle: 'Bubble Chart',
             controller: 'chartController'
         })
