@@ -4,11 +4,11 @@ app.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/about', {
             templateUrl: '/view/pages/about.html',
-            pageTitle: 'about',
+            pageTitle: 'About',
             controller: 'aboutController'
         })
-        .when('/chart', {
-            templateUrl: '/view/pages/chart.html',
+        .when('/chart/pack', {
+            templateUrl: '/view/pages/bubbleChart.html',
             pageTitle: 'Bubble Chart',
             controller: 'chartController'
         })
@@ -28,24 +28,13 @@ app.run(['$location','$rootScope',function($location, $rootScope) {
 app.controller('aboutController',function($scope, $location) {
     
 });
-app.controller('chartController',function($scope, artistSearch) {
-});
-app.directive('bubbleChart', ['$window', 'artistSearch', function($window, artistSearch) {
-	return {
-		restrict: 'A',
-		controller: 'chartController',
-		link: function($scope, element, attrs) {
-            function imageTfr (images){
-                for (var i in images){
-                    images[images[i]['size']] = images[i]['#text'];
-                }
-            }
-            
-            var res = artistSearch.query({artist: 'ghost'}, function () {
-                var lastFmData = res.results.artistmatches.artist;
-                for (var a in lastFmData) imageTfr(lastFmData[a].image);
+app.controller('chartController', function($scope, artistSearch, artistGetSimilar) {
+    $scope.artistSearch = function() {
+        var res = artistSearch.query({artist: $scope.searchTerm}, function () {
+            if(res.results) {
                 $scope.lastFmArtists = res.results.artistmatches.artist;
                 var artistArray = [];
+
                 angular.forEach($scope.lastFmArtists, function(value, key) {
                     var artist = {
                         name: value['name'],
@@ -54,11 +43,63 @@ app.directive('bubbleChart', ['$window', 'artistSearch', function($window, artis
                     }
                     artistArray.push(artist);
                 });
+                $scope.searchType = 'artist';
                 $scope.artistData = { name: "lastFmData", children: artistArray };
-            })
+            }
+        });
+    };
+
+    $scope.artistGetSimilar = function() {
+        var res = artistGetSimilar.query({artist: $scope.searchTerm}, function () {
+            if(res.similarartists) {
+                $scope.lastFmArtists = res.similarartists.artist;
+                var artistArray = [];
+
+                angular.forEach($scope.lastFmArtists, function(value, key) {
+                    var artist = {
+                        name: value['name'],
+                        size: value['match'],
+                        image: value['image'][0]['#text']
+                    }
+                    artistArray.push(artist);
+                });
+                $scope.searchType = 'similar';
+                $scope.artistData = { name: "lastFmData", children: artistArray };
+            }
+        });
+    };
+});
+app.directive('bubbleChart', ['$window', function($window) {
+	return {
+		restrict: 'A',
+		controller: 'chartController',
+		link: function($scope, element, attrs) {
+            var active = false;
             
+            var w = angular.element($window);
+            $scope.getWindowDimensions = function () {
+                return {
+                    'h': w.height(),
+                    'w': w.width()
+                };
+            };
+            
+            angular.element($window).on('resize', function(){
+                $scope.$apply();
+                
+                if(active)
+                    renderChart();
+            });
+        
             $scope.$watch("artistData", function(n,o) {
-               if(n==o) return;
+                if(n==o) return;
+                renderChart();
+            });
+            
+            function renderChart() {
+                active = true;
+                
+                element.empty();
                 
                 var width = $window.innerWidth,
                     height = $window.innerHeight - 98,
@@ -75,7 +116,6 @@ app.directive('bubbleChart', ['$window', 'artistSearch', function($window, artis
                     .attr("height", height)
                     .attr("class", "bubble");
 
-                console.log($scope.artistData);
                 var root = $scope.artistData;
                 var node = svg.selectAll(".node")
                     .data(bubble.nodes(classes(root))
@@ -119,7 +159,7 @@ app.directive('bubbleChart', ['$window', 'artistSearch', function($window, artis
                 }
 
                 d3.select(self.frameElement).style("height", height + "px");
-            });
+            }
 		}
 	}
 }]);
@@ -209,8 +249,12 @@ app.directive('circlePack', ['$window', function($window) {
 var BASE_URL = "http://ws.audioscrobbler.com/2.0/?api_key=198aaad97ed3a7ae97043ccc5a327ba6&format=json";
 
 angular.module('lastfmService', ['ngResource'])
-	.factory('artistSearch', function($resource) {
-		return $resource(BASE_URL + '&method=artist.search&artist=:artist', {}, {
-			query: { method: 'GET', params: {}, isArray: false }
-		});
-	});
+    .factory('artistSearch', function($resource) {
+        return $resource(BASE_URL + '&method=artist.search&artist=:artist', {}, {
+            query: { method: 'GET', params: {}, isArray: false }
+        });
+    }).factory('artistGetSimilar', function($resource) {
+        return $resource(BASE_URL + '&method=artist.getSimilar&artist=:artist', {}, {
+            query: { method: 'GET', params: {}, isArray: false }
+        });
+    });
