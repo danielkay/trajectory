@@ -1,4 +1,7 @@
 {
+  "deploy": {
+      "webroot": "/"
+  },
   "hooks": {
      "postDeploy": "build.sh"
   }

@@ -28,65 +28,98 @@ app.run(['$location','$rootScope',function($location, $rootScope) {
 app.controller('aboutController',function($scope, $location) {
     
 });
-app.controller('chartController',function($scope, $location) {
-    
+app.controller('chartController',function($scope, artistSearch) {
 });
-app.directive('bubbleChart', ['$window', function($window) {
+app.directive('bubbleChart', ['$window', 'artistSearch', function($window, artistSearch) {
 	return {
 		restrict: 'A',
 		controller: 'chartController',
 		link: function($scope, element, attrs) {
-			var diameter = 960,
-				width = $window.innerWidth,
-				height = $window.innerHeight - 98,
-                format = d3.format(",d"),
-                color = d3.scale.category10();
-
-            var bubble = d3.layout.pack()
-                .sort(null)
-                .size([width, height])
-                .padding(1.5);
-
-            var svg = d3.select(".d3").append("svg")
-                .attr("width", width)
-                .attr("height", height)
-                .attr("class", "bubble");
-
-            d3.json("view/json.json", function(error, root) {
-              var node = svg.selectAll(".node")
-                  .data(bubble.nodes(classes(root))
-                  .filter(function(d) { return !d.children; }))
-                .enter().append("g")
-                  .attr("class", "node")
-                  .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-
-              node.append("title")
-                  .text(function(d) { return d.className + ": " + format(d.value); });
-
-              node.append("circle")
-                  .attr("r", function(d) { return d.r; })
-                  .style("fill", function(d) { return color(d.packageName); });
-
-              node.append("text")
-                  .attr("dy", ".3em")
-                  .style("text-anchor", "middle")
-                  .text(function(d) { return d.className.substring(0, d.r / 3); });
-            });
-
-            // Returns a flattened hierarchy containing all leaf nodes under the root.
-            function classes(root) {
-              var classes = [];
-
-              function recurse(name, node) {
-                if (node.children) node.children.forEach(function(child) { recurse(node.name, child); });
-                else classes.push({packageName: name, className: node.name, value: node.size});
-              }
-
-              recurse(null, root);
-              return {children: classes};
+            function imageTfr (images){
+                for (var i in images){
+                    images[images[i]['size']] = images[i]['#text'];
+                }
             }
+            
+            var res = artistSearch.query({artist: 'ghost'}, function () {
+                var lastFmData = res.results.artistmatches.artist;
+                for (var a in lastFmData) imageTfr(lastFmData[a].image);
+                $scope.lastFmArtists = res.results.artistmatches.artist;
+                var artistArray = [];
+                angular.forEach($scope.lastFmArtists, function(value, key) {
+                    var artist = {
+                        name: value['name'],
+                        size: value['listeners'],
+                        image: value['image'][0]['#text']
+                    }
+                    artistArray.push(artist);
+                });
+                $scope.artistData = { name: "lastFmData", children: artistArray };
+            })
+            
+            $scope.$watch("artistData", function(n,o) {
+               if(n==o) return;
+                
+                var width = $window.innerWidth,
+                    height = $window.innerHeight - 98,
+                    format = d3.format(",d"),
+                    color = d3.scale.category10();
 
-            d3.select(self.frameElement).style("height", height + "px"); 
+                var bubble = d3.layout.pack()
+                    .sort(null)
+                    .size([width, height])
+                    .padding(18);
+
+                var svg = d3.select(".d3").append("svg")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .attr("class", "bubble");
+
+                console.log($scope.artistData);
+                var root = $scope.artistData;
+                var node = svg.selectAll(".node")
+                    .data(bubble.nodes(classes(root))
+                    .filter(function(d) { return !d.children; }))
+                    .enter().append("g")
+                    .attr("class", "node")
+                    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+                    .style("cursor","pointer");
+
+                d3.selectAll(".node").append("title")
+                    .text(function(d) { return d.className + ": " + format(d.value); });
+
+                node.append("circle")
+                    .attr("r", function(d) { return d.r; })
+                    .style("fill", "#202020")
+                    .on("mouseover", function() {
+                        d3.select(this)
+                            .style("fill","red");
+                    })
+                    .on("mouseout", function() {
+                        d3.select(this)
+                            .style("fill", "#202020");
+                    });
+
+                d3.select(".node").append("text")
+                    .attr("dy", ".3em")
+                    .style("text-anchor", "middle")
+                    .text(function(d) { return d.className; });
+
+                // Returns a flattened hierarchy containing all leaf nodes under the root.
+                function classes(root) {
+                  var classes = [];
+
+                  function recurse(name, node) {
+                    if (node.children) node.children.forEach(function(child) { recurse(node.name, child); });
+                    else classes.push({packageName: name, className: node.name, value: node.size});
+                  }
+
+                  recurse(null, root);
+                  return {children: classes};
+                }
+
+                d3.select(self.frameElement).style("height", height + "px");
+            });
 		}
 	}
 }]);
@@ -173,9 +206,11 @@ app.directive('circlePack', ['$window', function($window) {
 		}
 	}
 }]);
+var BASE_URL = "http://ws.audioscrobbler.com/2.0/?api_key=198aaad97ed3a7ae97043ccc5a327ba6&format=json";
+
 angular.module('lastfmService', ['ngResource'])
-	.factory('artistSearch', function(apiUrl, $resource) {
-		return $resource(apiUrl + '&method=artist.search&artist=:artist', {}, {
+	.factory('artistSearch', function($resource) {
+		return $resource(BASE_URL + '&method=artist.search&artist=:artist', {}, {
 			query: { method: 'GET', params: {}, isArray: false }
 		});
 	});
