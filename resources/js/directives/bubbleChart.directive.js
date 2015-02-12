@@ -1,32 +1,34 @@
-app.directive('bubbleChart', ['$window', 'artistSearch', function($window, artistSearch) {
+app.directive('bubbleChart', ['$window', function($window) {
 	return {
 		restrict: 'A',
 		controller: 'chartController',
 		link: function($scope, element, attrs) {
-            function imageTfr (images){
-                for (var i in images){
-                    images[images[i]['size']] = images[i]['#text'];
-                }
-            }
+            var active = false;
             
-            var res = artistSearch.query({artist: 'ghost'}, function () {
-                var lastFmData = res.results.artistmatches.artist;
-                for (var a in lastFmData) imageTfr(lastFmData[a].image);
-                $scope.lastFmArtists = res.results.artistmatches.artist;
-                var artistArray = [];
-                angular.forEach($scope.lastFmArtists, function(value, key) {
-                    var artist = {
-                        name: value['name'],
-                        size: value['listeners'],
-                        image: value['image'][0]['#text']
-                    }
-                    artistArray.push(artist);
-                });
-                $scope.artistData = { name: "lastFmData", children: artistArray };
-            })
+            var w = angular.element($window);
+            $scope.getWindowDimensions = function () {
+                return {
+                    'h': w.height(),
+                    'w': w.width()
+                };
+            };
             
+            angular.element($window).on('resize', function(){
+                $scope.$apply();
+                
+                if(active)
+                    renderChart();
+            });
+        
             $scope.$watch("artistData", function(n,o) {
-               if(n==o) return;
+                if(n==o) return;
+                renderChart();
+            });
+            
+            function renderChart() {
+                active = true;
+                
+                element.empty();
                 
                 var width = $window.innerWidth,
                     height = $window.innerHeight - 98,
@@ -43,7 +45,6 @@ app.directive('bubbleChart', ['$window', 'artistSearch', function($window, artis
                     .attr("height", height)
                     .attr("class", "bubble");
 
-                console.log($scope.artistData);
                 var root = $scope.artistData;
                 var node = svg.selectAll(".node")
                     .data(bubble.nodes(classes(root))
@@ -87,7 +88,7 @@ app.directive('bubbleChart', ['$window', 'artistSearch', function($window, artis
                 }
 
                 d3.select(self.frameElement).style("height", height + "px");
-            });
+            }
 		}
 	}
 }]);

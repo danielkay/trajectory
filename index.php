@@ -2,7 +2,7 @@
 
     require 'vendor/mikecao/flight/flight/Flight.php';
 
-    Flight::route('/', function(){
+    Flight::route('*', function(){
         include 'view/index.html';
     });
 
