@@ -1,6 +1,11 @@
+.inputArea {
+    display: inline-block;
+}
+
 .d3 {
     position: absolute;
     top: 4em;
+    left: 0;
     z-index: -1;
 }
 
@@ -11,4 +16,8 @@ circle {
 
 .leaf circle {
   fill-opacity: 1;
+}
+
+#images {
+    position: absolute;
 }

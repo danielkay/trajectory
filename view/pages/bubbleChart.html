@@ -1,6 +1,9 @@
 <div class='container'>
-    <label for="searchTerm">Artist Name: <input name="searchTerm" data-ng-model="searchTerm" type="text" /></label>
-    <button type="input" data-ng-click="artistSearch()">Search Artist</button>
-    <button type="input" data-ng-click="artistGetSimilar()">Search Similar Artists</button>
+    <div class="inputArea">
+        <input name="searchTerm" data-ng-model="searchTerm" type="text" />
+        <button type="input" data-ng-click="artistSearch()">Search Artist</button>
+        <button type="input" data-ng-click="artistGetSimilar()">Search Similar Artists</button>
+        <button type="input" data-ng-click="clear()">Clear</button>
+    </div>
 	<div class='d3' data-bubble-chart></div>
 </div>

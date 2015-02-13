@@ -2,6 +2,10 @@ body {
   background: #D0D0D0;
 }
 
+.container {
+  padding: 5px;
+}
+
 .navbar-container {
   height: 4em;
 }
@@ -85,9 +89,14 @@ body {
   line-height: 2em;
 }
 
+.inputArea {
+  display: inline-block;
+}
+
 .d3 {
   position: absolute;
   top: 4em;
+  left: 0;
   z-index: -1;
 }
 
@@ -98,6 +107,10 @@ circle {
 
 .leaf circle {
   fill-opacity: 1;
+}
+
+#images {
+  position: absolute;
 }
 
 /*# sourceMappingURL=stylesheet.css.map */
